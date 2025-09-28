@@ -41,3 +41,19 @@ export async function getRoverPhotos(roverName) {
         return null;
     }
 }
+
+
+export async function getRoverManifest(roverName) {
+    const apiUrl = `https://api.nasa.gov/mars-photos/api/v1/manifests/${roverName}?api_key=${API_KEY}`;
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error(`ERROR ${response.status}`);
+        }
+        const data = await response.json();
+        return data.photo_manifest;
+    } catch (error) {
+        console.error(` ${roverName} ERROR`, error);
+        return null;
+    }
+}
