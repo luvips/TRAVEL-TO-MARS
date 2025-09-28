@@ -22,7 +22,7 @@ export async function getWeatherData() {
         };
 
     } catch (error) {
-        console.error("CERROR", error);
+        console.error("ERROR", error);
         return null; 
     }
 }
