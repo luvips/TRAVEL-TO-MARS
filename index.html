@@ -5,65 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Misión a Marte - Explorador Interactivo</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Favicon para una mejor identidad visual -->
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon"> 
 </head>
 <body>
 
-    <canvas id="starfield"></canvas>
+    <canvas id="starfield" aria-hidden="true" title="Fondo animado de estrellas"></canvas>
 
-    <header>
-        <h1>Explorando Marte</h1>
-        <p>Un viaje interactivo a través de los datos de la NASA</p>
-        <a href="#missions" class="cta-button">Explorar Misiones</a>
+    <header class="hero-section">
+        <div class="hero-content">
+            <h1>Explorando Marte</h1>
+            <p class="subtitle">Un viaje interactivo a través de los datos de la NASA</p>
+            <a href="#dashboard" class="cta-button" aria-label="Explorar Misiones de Marte">Explorar Datos</a>
+        </div>
     </header>
 
-    <main>
-        <section id="dashboard">
-            <div id="weather-widget" class="widget">
-                <div class="loader"></div>
+    <main id="main-content">
+        <section id="dashboard" aria-labelledby="dashboard-title">
+            <h2 id="dashboard-title" class="sr-only">Panel de Control de Misiones</h2>
+            
+            <div id="weather-widget" class="widget card">
+                <h3 class="widget-title">Clima en Elysium Planitia</h3>
+                <div class="loader-container">
+                    <div class="loader"></div>
+                    <p>Cargando datos del clima...</p>
+                </div>
+                <!-- El contenido se inyectará aquí con JS -->
             </div>
 
-            <div id="latest-photos" class="widget">
-                <div class="loader"></div>
+            <div id="latest-photos" class="widget card">
+                <h3 class="widget-title">Últimas Fotos de Perseverance</h3>
+                <div class="loader-container">
+                    <div class="loader"></div>
+                    <p>Cargando últimas fotos...</p>
+                </div>
+                <!-- El contenido se inyectará aquí con JS -->
             </div>
         </section>
 
-        <section id="missions">
-            <h2>Explorador de Misiones Rover</h2>
-            <nav id="rover-selector">
-                <button data-rover="Perseverance" class="active">Perseverance</button>
-                <button data-rover="Curiosity">Curiosity</button>
-                <button data-rover="Opportunity">Opportunity</button>
-                <button data-rover="Spirit">Spirit</button>
+        <section id="missions" aria-labelledby="missions-title">
+            <h2 id="missions-title">Explorador de Misiones Rover</h2>
+            
+            <nav id="rover-selector" aria-label="Selector de Rovers">
+                <button data-rover="Perseverance" class="active" aria-pressed="true">Perseverance</button>
+                <button data-rover="Curiosity" aria-pressed="false">Curiosity</button>
+                <button data-rover="Opportunity" aria-pressed="false">Opportunity</button>
+                <button data-rover="Spirit" aria-pressed="false">Spirit</button>
             </nav>
 
-            <div id="mission-manifest"></div>
-            <div id="photo-gallery"></div>
+            <div class="mission-details-container">
+                <div id="mission-manifest" class="card">
+                    <div class="loader-container">
+                        <div class="loader"></div>
+                        <p>Cargando manifiesto de misión...</p>
+                    </div>
+                    <!-- El contenido se inyectará aquí con JS -->
+                </div>
+            </div>
+            
+            <div id="photo-gallery" class="photo-section">
+                <h3>Galería de Fotos del Rover</h3>
+                <div class="loader-container">
+                    <div class="loader"></div>
+                    <p>Cargando galería de fotos...</p>
+                </div>
+                <!-- Las fotos se inyectarán aquí con JS -->
+            </div>
         </section>
 
-        <section id="planet-data">
-            <h2>El Planeta Rojo</h2>
+        <section id="planet-data" aria-labelledby="planet-data-title">
+            <h2 id="planet-data-title">El Planeta Rojo</h2>
             
-            <div id="map-container">
-                <h3>Mapa 3D Interactivo</h3>
+            <div id="map-container" class="card">
+                <h3>Mapa 3D Interactivo de Marte (NASA's Eyes)</h3>
                 <iframe 
-    src="https://eyes.nasa.gov/apps/solar-system/#/mars"
-    width="100%" 
-    height="600" 
-    frameborder="0"
-    scrolling="no"
-    allowfullscreen>
-</iframe>
+                    id="nasa-eyes-map"
+                    src="https://eyes.nasa.gov/apps/solar-system/#/mars"
+                    width="100%" 
+                    height="600" 
+                    frameborder="0"
+                    scrolling="no"
+                    allowfullscreen
+                    title="Mapa 3D interactivo del sistema solar de la NASA"
+                ></iframe>
             </div>
 
-            <div id="map-controls">
-                <button data-target="Perseverance">Ver Perseverance</button>
-                <button data-target="Curiosity">Ver Curiosity</button>
-                <button data-target="General">Vista General</button>
-            </div>
+            <nav id="map-controls" aria-label="Controles del mapa 3D de Marte">
+                <button data-target="Perseverance" aria-label="Ver posición del rover Perseverance">Ver Perseverance</button>
+                <button data-target="Curiosity" aria-label="Ver posición del rover Curiosity">Ver Curiosity</button>
+                <button data-target="General" aria-label="Ver vista general de Marte">Vista General</button>
+            </nav>
         </section>
     </main>
 
-   
+    <footer class="footer">
+        <p>&copy; 2023 Misión a Marte. Todos los derechos reservados. Datos proporcionados por la NASA.</p>
+        <div class="social-links">
+            <a href="#" aria-label="Twitter"><img src="images/twitter-icon.png" alt="Twitter"></a>
+            <a href="#" aria-label="Instagram"><img src="images/instagram-icon.png" alt="Instagram"></a>
+        </div>
+    </footer>
 
     <script type="module" src="scripts/main.js"></script>
 
