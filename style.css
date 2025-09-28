@@ -1,16 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@700&family=Roboto:wght@400;700&display=swap');
 
 :root {
-    --color-cosmic-black: #000000;
+    --color-cosmic-black: #0D0D1A;
     --color-space-gray: #3D405B;
     --color-data-blue: #81D2C7;
     --color-mars-red: #E07A5F;
     --color-text: #F4F1DE;
-
     --font-title: 'Exo 2', sans-serif;
     --font-body: 'Roboto', sans-serif;
 }
-
 
 * {
     margin: 0;
@@ -25,7 +23,6 @@ body {
     line-height: 1.6;
 }
 
-
 #starfield {
     position: fixed;
     top: 0;
@@ -35,29 +32,22 @@ body {
     z-index: -1;
 }
 
-
 header, section {
     padding: 4rem 2rem;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     text-align: center;
 }
 
-h1, h2 {
+h1, h2, h3 {
     font-family: var(--font-title);
     color: var(--color-mars-red);
     margin-bottom: 1rem;
 }
 
-h1 {
-    font-size: 3.5rem;
-    text-shadow: 0 0 10px var(--color-mars-red);
-}
-
-h2 {
-    font-size: 2.5rem;
-}
-
+h1 { font-size: 3.5rem; text-shadow: 0 0 10px var(--color-mars-red); }
+h2 { font-size: 2.5rem; }
+h3 { font-size: 1.8rem; color: var(--color-data-blue); }
 
 .cta-button {
     display: inline-block;
@@ -85,13 +75,79 @@ h2 {
 }
 
 .widget {
-    background-color: rgba(61, 64, 91, 0.5); 
+    background-color: rgba(61, 64, 91, 0.5);
     border: 1px solid var(--color-space-gray);
     padding: 2rem;
     border-radius: 10px;
-    width: 300px;
+    width: 350px;
     backdrop-filter: blur(5px);
 }
+
+.widget .temperature {
+    font-size: 3rem;
+    font-family: var(--font-title);
+    color: var(--color-data-blue);
+}
+
+.widget .sol-date {
+    font-size: 1.2rem;
+    color: var(--color-text);
+}
+
+#rover-selector {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+#rover-selector button {
+    padding: 0.6rem 1.5rem;
+    font-family: var(--font-title);
+    font-size: 1rem;
+    background-color: var(--color-space-gray);
+    color: var(--color-text);
+    border: 2px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#rover-selector button:hover {
+    border-color: var(--color-data-blue);
+}
+
+#rover-selector button.active {
+    background-color: var(--color-mars-red);
+    color: var(--color-cosmic-black);
+    border-color: var(--color-mars-red);
+}
+
+#mission-manifest {
+    background-color: rgba(13, 13, 26, 0.7);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--color-space-gray);
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    text-align: left;
+}
+
+#mission-manifest ul {
+    list-style: none;
+}
+
+#mission-manifest ul li {
+    padding: 0.2rem 0;
+}
+
+#photo-gallery {
+    margin-top: 2rem;
+}
+
+
+
 
 
 .loader {
@@ -105,7 +161,5 @@ h2 {
 }
 
 @keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+    to { transform: rotate(360deg); }
 }
