@@ -1,8 +1,7 @@
-
 export function initStarfield() {
     const canvas = document.getElementById('starfield');
     if (!canvas) {
-        console.error('Canvas element not found!');
+        console.error('Canvas element not found for starfield!');
         return;
     }
     const ctx = canvas.getContext('2d');
@@ -13,9 +12,9 @@ export function initStarfield() {
         canvas.height = window.innerHeight;
     }
     window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+    resizeCanvas(); // Llama una vez al inicio
 
-    const numStars = 500; // Cantidad de estrellas
+    const numStars = 700; // Aumentamos la cantidad de estrellas para un campo más denso
     let stars = [];
 
     // Crea las estrellas con propiedades aleatorias
@@ -24,8 +23,8 @@ export function initStarfield() {
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
             radius: Math.random() * 1.5 + 0.5, // Radio entre 0.5 y 2
-            alpha: Math.random(), // Opacidad inicial
-            deltaAlpha: (Math.random() - 0.5) * 0.02 // Velocidad de parpadeo
+            alpha: Math.random() * 0.8 + 0.2, // Opacidad inicial entre 0.2 y 1 para que no haya estrellas invisibles
+            deltaAlpha: (Math.random() - 0.5) * 0.01 // Velocidad de parpadeo más lenta y sutil
         });
     }
 
@@ -41,16 +40,17 @@ export function initStarfield() {
     function updateStar(star) {
         star.alpha += star.deltaAlpha;
 
-        // Invierte la dirección del parpadeo si llega a los límites
-        if (star.alpha <= 0 || star.alpha >= 1) {
+        // Invierte la dirección del parpadeo si llega a los límites (0.2 y 1 para un parpadeo más natural)
+        if (star.alpha <= 0.2 || star.alpha >= 1) {
             star.deltaAlpha *= -1;
         }
     }
 
     // Bucle de animación
     function animate() {
-        // Limpia el canvas en cada fotograma
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Limpia el canvas en cada fotograma con una pequeña opacidad para efecto "rastro" sutil
+        ctx.fillStyle = 'rgba(13, 13, 26, 0.1)'; // Usar color de fondo con opacidad
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         // Dibuja y actualiza cada estrella
         stars.forEach(star => {
@@ -64,5 +64,6 @@ export function initStarfield() {
 
     // Inicia la animación
     animate();
-    initStarfield = true;
+    // La línea `initStarfield = true;` no es estándar en módulos ES y fue eliminada.
+    // Si necesitas un flag para saber si ya se inicializó, puedes usar una variable local.
 }
