@@ -13,9 +13,8 @@ import {
 
 // URLs de NASA Eyes (asegúrate de que los IDs del iframe en index.html sean correctos si los cambias)
 const nasaEyesUrls = {
-    'Perseverance': 'https://eyes.nasa.gov/mars2020/#/mars2020?embed=true',
-    'Curiosity': 'https://eyes.nasa.gov/apps/marsdem/#/curiosity?embed=true',
-    'General': 'https://eyes.nasa.gov/apps/mars2020/#/mars'
+    'Perseverance': 'https://mars.nasa.gov/gltf_embed/24883',
+    'General': 'https://eyes.nasa.gov/apps/solar-system/#/mars'
 };
 
 // Variable global para mantener el rover activo
