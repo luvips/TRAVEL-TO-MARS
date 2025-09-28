@@ -12,18 +12,17 @@
 
     <header>
         <h1>Explorando Marte</h1>
-        <p>Un viaje interactivo</p>
+        <p>Un viaje interactivo a través de los datos de la NASA</p>
         <a href="#missions" class="cta-button">Explorar Misiones</a>
     </header>
 
     <main>
         <section id="dashboard">
             <div id="weather-widget" class="widget">
-                <h2>Clima en Elysium Planitia</h2>
-                <div class="loader"></div> </div>
+                <div class="loader"></div>
+            </div>
 
             <div id="latest-photos" class="widget">
-                <h2>Últimas Fotos de Perseverance</h2>
                 <div class="loader"></div>
             </div>
         </section>
@@ -38,38 +37,33 @@
             </nav>
 
             <div id="mission-manifest"></div>
-
             <div id="photo-gallery"></div>
         </section>
 
         <section id="planet-data">
             <h2>El Planeta Rojo</h2>
-            <div id="mars-facts"></div>
-
-            <div id="relay-network-info"></div>
             
-            <h3>Mapa 3D Interactivo</h3>
             <div id="map-container">
-              <iframe 
-                src="https://eyes.nasa.gov/apps/solar-system/#/mars"
-                width="110%" 
-                height="600" 
-                frameborder="0"
-                scrolling="si"
-                style="display: block; margin: 0 auto;"
-                >
-                </iframe>
+                <h3>Mapa 3D Interactivo</h3>
+                <iframe 
+    src="https://eyes.nasa.gov/apps/solar-system/#/mars"
+    width="100%" 
+    height="600" 
+    frameborder="0"
+    scrolling="no"
+    allowfullscreen>
+</iframe>
             </div>
+
             <div id="map-controls">
                 <button data-target="Perseverance">Ver Perseverance</button>
                 <button data-target="Curiosity">Ver Curiosity</button>
+                <button data-target="General">Vista General</button>
             </div>
         </section>
     </main>
 
-    <footer>
-        <p>Marte</p>
-    </footer>
+   
 
     <script type="module" src="scripts/main.js"></script>
 
