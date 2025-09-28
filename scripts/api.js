@@ -87,10 +87,7 @@ export async function getRoverPhotosBySol(roverName, sol, camera = '') { // Aña
     // Añadir lógica para manejar el caso de 'sol' como 'latest' o 'max_sol'
     let url = `https://api.nasa.gov/mars-photos/api/v1/rovers/${roverName}/photos?api_key=${API_KEY}`;
     if (sol === 'latest' || sol === 'max_sol') {
-        // En este caso, ya tenemos getLatestRoverPhotos. Esta función es para un SOL específico.
-        // Si se pide 'max_sol', la API de manifest ya lo da.
-        // Podríamos obtener el max_sol del manifest aquí, o asumir que se pasará un número.
-        // Por simplicidad, asumimos que 'sol' siempre será un número para esta función.
+        
         url += `&sol=${sol}`;
     } else {
         url += `&sol=${sol}`;
