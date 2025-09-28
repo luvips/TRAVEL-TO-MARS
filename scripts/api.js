@@ -1,13 +1,8 @@
-// Considera usar variables de entorno para API_KEY en un entorno de producción.
-// Para este ejemplo de vanilla JS, se mantiene aquí.
+
 const API_KEY = 'RmffFUTSgjahS3SCtoTRPamgVVodlJrte3xEWLWk'; 
 
 export async function getWeatherData() {
-    // La API Insight Mars Weather (insight_weather) ha sido descontinuada.
-    // Intentaremos obtenerla, pero es probable que falle.
-    // Podrías considerar reemplazarla con datos de Perseverance/Curiosity (MWL)
-    // o un mensaje que indique que la API no está disponible.
-    // Por ahora, mantendremos la llamada original con manejo de error.
+
     
     const apiUrl = `https://api.nasa.gov/insight_weather/?api_key=${API_KEY}&feedtype=json&ver=1.0`;
     try {
