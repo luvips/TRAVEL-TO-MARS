@@ -1,3 +1,39 @@
+/* Botones de navegación principal (SPA) */
+.main-nav {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+}
+
+.main-nav .nav-btn {
+    padding: 0.8rem 2rem;
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    background-color: var(--color-space-gray);
+    color: var(--color-text);
+    border: 2px solid var(--color-space-gray);
+    border-radius: var(--border-radius-default);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.main-nav .nav-btn:hover:not(.active) {
+    border-color: var(--color-data-blue);
+    color: var(--color-data-blue);
+    transform: translateY(-2px);
+}
+
+.main-nav .nav-btn.active {
+    background-color: var(--color-mars-red);
+    color: var(--color-cosmic-black);
+    border-color: var(--color-mars-red);
+    box-shadow: 0 4px 15px rgba(224, 122, 95, 0.5);
+    transform: scale(1.05);
+}
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@700&family=Roboto:wght@400;700&display=swap');
 
 :root {
