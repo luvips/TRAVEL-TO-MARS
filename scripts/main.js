@@ -150,6 +150,14 @@ export function initPlanetView() {
 
 // Inicialización global (starfield y SPA)
 if (typeof window !== 'undefined') {
+    // Exponer inicializadores para que el cargador SPA en index.html pueda invocarlos
+    // después de inyectar cada vista en el DOM.
+    window.app = {
+        initDashboardView,
+        initMissionsView,
+        initPlanetView
+    };
+
     document.addEventListener('DOMContentLoaded', () => {
         initStarfield();
         // Si no es SPA, inicializar todo por defecto (para compatibilidad)

@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Misión a Marte - Explorador Interactivo</title>
     <link rel="stylesheet" href="style.css">
-    <script type="module" src="scripts/main.js"></script>
+    <!-- Favicon para una mejor identidad visual -->
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon"> 
 </head>
 <body>
 
@@ -24,6 +25,7 @@
     </header>
 
     <main id="spa-content">
+        <!-- Aquí se cargará dinámicamente el contenido de cada vista -->
     </main>
 
     <footer class="footer">
@@ -32,7 +34,7 @@
 
     <script type="module" src="scripts/main.js"></script>
     <script>
-
+    // SPA simple: carga vistas HTML en el contenedor #spa-content
     const views = {
         dashboard: 'dashboard.html',
         missions: 'missions.html',
@@ -57,13 +59,22 @@
             const res = await fetch(views[view]);
             if (!res.ok) throw new Error('No se pudo cargar la vista');
             const html = await res.text();
-            // Extraer solo el contenido de <main> de la vista
+            // Extraer solo el contenido de <main> de la vista si existe
             const temp = document.createElement('div');
             temp.innerHTML = html;
             const main = temp.querySelector('main');
             spaContent.innerHTML = main ? main.innerHTML : html;
-            // Re-ejecutar scripts de la vista si es necesario
+
+            // Inicializar la vista correspondiente después de inyectarla
+            if (view === 'dashboard' && window.app && typeof window.app.initDashboardView === 'function') {
+                window.app.initDashboardView();
+            } else if (view === 'missions' && window.app && typeof window.app.initMissionsView === 'function') {
+                window.app.initMissionsView();
+            } else if (view === 'planet' && window.app && typeof window.app.initPlanetView === 'function') {
+                window.app.initPlanetView();
+            }
         } catch (e) {
+            console.error(e);
             spaContent.innerHTML = '<p class="error-message">No se pudo cargar la vista.</p>';
         }
     }
@@ -77,6 +88,5 @@
     loadView('dashboard');
     </script>
 
- 
 </body>
 </html>
