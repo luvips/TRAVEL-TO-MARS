@@ -5,7 +5,7 @@ import { getWeatherData } from './api.js';
 document.addEventListener('DOMContentLoaded', async () => {
     
     initStarfield();
-    
-const weather = await getWeatherData();
+
+    const weather = await getWeatherData();
    
 });
