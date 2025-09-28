@@ -1,29 +1,6 @@
 export function displayWeatherData(weatherData) {
     const widget = document.getElementById('weather-widget');
-    
-    widget.innerHTML = ''; 
-
-    if (!weatherData) {
-        widget.innerHTML = `<h2>Clima en Elysium Planitia</h2><p>No se pudieron cargar los datos.</p>`;
-        return;
-    }
-
-    const avgTempCelsius = Math.round(weatherData.avgTemp);
-
-  
-    const content = `
-        <h2>Clima en Elysium Planitia</h2>
-        <p class="sol-date">Sol ${weatherData.sol}</p>
-        <p class="temperature">${avgTempCelsius}°C</p>
-        <p class="description">Temperatura Promedio</p>
-    `;
-
-    widget.innerHTML = content;
-}
-
-export function displayWeatherData(weatherData) {
-    const widget = document.getElementById('weather-widget');
-    widget.innerHTML = ''; 
+    widget.innerHTML = '';
     if (!weatherData) {
         widget.innerHTML = `<h2>Clima en Elysium Planitia</h2><p>No se pudieron cargar los datos.</p>`;
         return;
@@ -46,16 +23,16 @@ export function displayLatestPhotos(photos) {
         return;
     }
     const photoGrid = document.createElement('div');
-    photoGrid.className = 'photo-grid';
+    photoGrid.className = 'photo-grid-small';
     photos.forEach(photo => {
         const img = document.createElement('img');
         img.src = photo.img_src;
         img.alt = `Mars Rover Photo ID: ${photo.id}`;
+        img.loading = 'lazy';
         photoGrid.appendChild(img);
     });
     widget.appendChild(photoGrid);
 }
-
 
 export function displayMissionManifest(manifest) {
     const manifestContainer = document.getElementById('mission-manifest');
@@ -77,7 +54,27 @@ export function displayMissionManifest(manifest) {
 }
 
 export function updateActiveRoverButton(clickedButton) {
-    const buttons = document.querySelectorAll('#rover-selector button');
-    buttons.forEach(button => button.classList.remove('active'));
+    document.querySelectorAll('#rover-selector button').forEach(button => button.classList.remove('active'));
     clickedButton.classList.add('active');
+}
+
+export function displayPhotoGallery(photos) {
+    const galleryContainer = document.getElementById('photo-gallery');
+    galleryContainer.innerHTML = '';
+    if (!photos || photos.length === 0) {
+        galleryContainer.innerHTML = `<p>No se encontraron fotos para el Sol seleccionado. Intenta con otro.</p>`;
+        return;
+    }
+    const photoGrid = document.createElement('div');
+    photoGrid.className = 'photo-grid-large';
+    photos.forEach(photo => {
+        const imgContainer = document.createElement('div');
+        imgContainer.className = 'photo-item';
+        imgContainer.innerHTML = `
+            <img src="${photo.img_src}" alt="Foto del rover ${photo.rover.name}" loading="lazy">
+            <div class="photo-info">Cámara: ${photo.camera.full_name}</div>
+        `;
+        photoGrid.appendChild(imgContainer);
+    });
+    galleryContainer.appendChild(photoGrid);
 }
