@@ -1,38 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="stylesheet" href="style.css">
-    <title>Marte</title>
+    <title>Misión a Marte - Explorador Interactivo</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <canvas id="starfield"></canvas>
 
     <header>
         <h1>Explorando Marte</h1>
         <p>Un viaje interactivo</p>
+        <a href="#missions" class="cta-button">Explorar Misiones</a>
     </header>
 
     <main>
         <section id="dashboard">
             <div id="weather-widget" class="widget">
                 <h2>Clima en Elysium Planitia</h2>
-            
+                <div class="loader"></div> </div>
 
             <div id="latest-photos" class="widget">
                 <h2>Últimas Fotos de Perseverance</h2>
+                <div class="loader"></div>
             </div>
         </section>
 
-  <section id="planet-data">
-            <h2>El Planeta Rojo</h2>
-            <div ></div>
+        <section id="missions">
+            <h2>Explorador de Misiones Rover</h2>
+            <nav id="rover-selector">
+                <button data-rover="Perseverance" class="active">Perseverance</button>
+                <button data-rover="Curiosity">Curiosity</button>
+                <button data-rover="Opportunity">Opportunity</button>
+                <button data-rover="Spirit">Spirit</button>
+            </nav>
 
-            <div ></div>
+            <div id="mission-manifest"></div>
+
+            <div id="photo-gallery"></div>
+        </section>
+
+        <section id="planet-data">
+            <h2>El Planeta Rojo</h2>
+            <div id="mars-facts"></div>
+
+            <div id="relay-network-info"></div>
             
             <h3>Mapa 3D Interactivo</h3>
-            <div >
-                <iframe 
+            <div id="map-container">
+              <iframe 
                 src="https://eyes.nasa.gov/apps/solar-system/#/mars"
                 width="110%" 
                 height="600" 
@@ -42,18 +60,18 @@
                 >
                 </iframe>
             </div>
-            <div>
-                <button>Ver Perseverance</button>
-                <button >Ver Curiosity</button>
+            <div id="map-controls">
+                <button data-target="Perseverance">Ver Perseverance</button>
+                <button data-target="Curiosity">Ver Curiosity</button>
             </div>
         </section>
-
-       
-
     </main>
-<footer>
+
+    <footer>
         <p>Marte</p>
-</footer>
+    </footer>
+
+    <script type="module" src="scripts/main.js"></script>
 
 </body>
 </html>
