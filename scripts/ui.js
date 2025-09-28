@@ -55,3 +55,23 @@ export function displayLatestPhotos(photos) {
     });
     widget.appendChild(photoGrid);
 }
+
+
+export function displayMissionManifest(manifest) {
+    const manifestContainer = document.getElementById('mission-manifest');
+    if (!manifest) {
+        manifestContainer.innerHTML = `<p>No se pudo cargar el manifiesto de la misión.</p>`;
+        return;
+    }
+    const content = `
+        <h3>Manifiesto: ${manifest.name}</h3>
+        <ul>
+            <li><strong>Estado:</strong> ${manifest.status}</li>
+            <li><strong>Lanzamiento:</strong> ${manifest.launch_date}</li>
+            <li><strong>Aterrizaje:</strong> ${manifest.landing_date}</li>
+            <li><strong>Último Sol Marciano:</strong> ${manifest.max_sol}</li>
+            <li><strong>Fotos Totales:</strong> ${manifest.total_photos.toLocaleString()}</li>
+        </ul>
+    `;
+    manifestContainer.innerHTML = content;
+}
