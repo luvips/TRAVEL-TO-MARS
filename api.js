@@ -24,4 +24,20 @@ export async function getWeatherData() {
     } catch (error) {
         console.error("CERROR", error);
         return null; 
-}}
+    }
+}
+
+export async function getRoverPhotos(roverName) {
+    const apiUrl = `https://api.nasa.gov/mars-photos/api/v1/rovers/${roverName}/latest_photos?api_key=${API_KEY}`;
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error(`ERROR ${response.status}`);
+        }
+        const data = await response.json();
+        return data.latest_photos.slice(0, 4);
+    } catch (error) {
+        console.error(` ${roverName} ERROR:`, error);
+        return null;
+    }
+}
