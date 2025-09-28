@@ -73,70 +73,88 @@ async function loadPhotoGallery(roverName, sol) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-    initStarfield();
 
+// Inicialización modular para SPA
+export async function initDashboardView() {
     // Cargar y mostrar datos del clima
     const weatherWidget = document.getElementById('weather-widget');
-    showLoader(weatherWidget); // Mostrar loader del clima
-    try {
-        const weather = await getWeatherData();
-        displayWeatherData(weather);
-    } catch (error) {
-        console.error("Error al cargar datos del clima:", error);
-        showErrorMessage(weatherWidget, "Error al cargar datos del clima.");
-    } finally {
-        hideLoader(weatherWidget); // Ocultar loader del clima
+    if (weatherWidget) {
+        showLoader(weatherWidget);
+        try {
+            const weather = await getWeatherData();
+            displayWeatherData(weather);
+        } catch (error) {
+            console.error("Error al cargar datos del clima:", error);
+            showErrorMessage(weatherWidget, "Error al cargar datos del clima.");
+        } finally {
+            hideLoader(weatherWidget);
+        }
     }
-
 
     // Cargar y mostrar últimas fotos de Perseverance en el dashboard
     const latestPhotosWidget = document.getElementById('latest-photos');
-    showLoader(latestPhotosWidget); // Mostrar loader de últimas fotos
-    try {
-        const photos = await getLatestRoverPhotos('Perseverance');
-        displayLatestPhotos(photos);
-    } catch (error) {
-        console.error("Error al cargar últimas fotos:", error);
-        showErrorMessage(latestPhotosWidget, "Error al cargar las últimas fotos.");
-    } finally {
-        hideLoader(latestPhotosWidget); // Ocultar loader de últimas fotos
+    if (latestPhotosWidget) {
+        showLoader(latestPhotosWidget);
+        try {
+            const photos = await getLatestRoverPhotos('Perseverance');
+            displayLatestPhotos(photos);
+        } catch (error) {
+            console.error("Error al cargar últimas fotos:", error);
+            showErrorMessage(latestPhotosWidget, "Error al cargar las últimas fotos.");
+        } finally {
+            hideLoader(latestPhotosWidget);
+        }
     }
+}
 
+export function initMissionsView() {
     // Event listener para el selector de rovers
     const roverSelector = document.getElementById('rover-selector');
-    roverSelector.addEventListener('click', async (event) => {
-        if (event.target.tagName === 'BUTTON') {
-            const newRoverName = event.target.dataset.rover;
-            if (newRoverName !== activeRover) { // Solo cargar si es un rover diferente
-                updateActiveRoverButton(event.target);
-                await loadRoverData(newRoverName);
+    if (roverSelector) {
+        roverSelector.addEventListener('click', async (event) => {
+            if (event.target.tagName === 'BUTTON') {
+                const newRoverName = event.target.dataset.rover;
+                if (newRoverName !== activeRover) {
+                    updateActiveRoverButton(event.target);
+                    await loadRoverData(newRoverName);
+                }
             }
-        }
-    });
-    
+        });
+    }
+    // Cargar los datos del rover por defecto al inicio
+    loadRoverData('Perseverance');
+}
+
+export function initPlanetView() {
     // Event listener para los controles del mapa
     const mapControls = document.getElementById('map-controls');
-    const nasaEyesIframe = document.getElementById('nasa-eyes-map'); // Obtener el iframe por ID
-    
-    mapControls.addEventListener('click', (event) => {
-        if (event.target.tagName === 'BUTTON') {
-            const target = event.target.dataset.target;
-            if (nasaEyesUrls[target] && nasaEyesIframe) {
-                nasaEyesIframe.src = nasaEyesUrls[target];
+    const nasaEyesIframe = document.getElementById('nasa-eyes-map');
+    if (mapControls && nasaEyesIframe) {
+        mapControls.addEventListener('click', (event) => {
+            if (event.target.tagName === 'BUTTON') {
+                const target = event.target.dataset.target;
+                if (nasaEyesUrls[target] && nasaEyesIframe) {
+                    nasaEyesIframe.src = nasaEyesUrls[target];
+                }
+                document.querySelectorAll('#map-controls button').forEach(button => button.classList.remove('active'));
+                event.target.classList.add('active');
             }
-            // Opcional: añadir clase 'active' a los botones del mapa si se desea
-            document.querySelectorAll('#map-controls button').forEach(button => button.classList.remove('active'));
-            event.target.classList.add('active');
+        });
+        // Establecer el botón "Vista General" como activo por defecto para el mapa
+        const generalMapButton = document.querySelector('#map-controls button[data-target="General"]');
+        if (generalMapButton) {
+            generalMapButton.classList.add('active');
         }
-    });
-    // Establecer el botón "Vista General" como activo por defecto para el mapa
-    const generalMapButton = document.querySelector('#map-controls button[data-target="General"]');
-    if (generalMapButton) {
-        generalMapButton.classList.add('active');
     }
+}
 
-
-    // Cargar los datos del rover por defecto al inicio
-    await loadRoverData('Perseverance');
-});
+// Inicialización global (starfield y SPA)
+if (typeof window !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', () => {
+        initStarfield();
+        // Si no es SPA, inicializar todo por defecto (para compatibilidad)
+        if (document.getElementById('weather-widget')) initDashboardView();
+        if (document.getElementById('rover-selector')) initMissionsView();
+        if (document.getElementById('map-controls')) initPlanetView();
+    });
+}
