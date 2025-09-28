@@ -75,3 +75,9 @@ export function displayMissionManifest(manifest) {
     `;
     manifestContainer.innerHTML = content;
 }
+
+export function updateActiveRoverButton(clickedButton) {
+    const buttons = document.querySelectorAll('#rover-selector button');
+    buttons.forEach(button => button.classList.remove('active'));
+    clickedButton.classList.add('active');
+}
