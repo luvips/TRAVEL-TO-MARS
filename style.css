@@ -146,7 +146,43 @@ h3 { font-size: 1.8rem; color: var(--color-data-blue); }
     margin-top: 2rem;
 }
 
+.photo-grid-small, .photo-grid-large {
+    display: grid;
+    gap: 1rem;
+}
 
+.photo-grid-small { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+.photo-grid-large { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+.photo-grid-small img, .photo-grid-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+}
+
+.photo-grid-large .photo-item:hover img {
+    transform: scale(1.03);
+}
+
+#map-controls {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+#map-controls button {
+    padding: 0.6rem 1.5rem;
+    font-family: var(--font-title);
+    background-color: var(--color-data-blue);
+    color: var(--color-cosmic-black);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
 
 
