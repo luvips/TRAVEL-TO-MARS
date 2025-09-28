@@ -5,103 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Misión a Marte - Explorador Interactivo</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Favicon para una mejor identidad visual -->
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon"> 
+    <script type="module" src="scripts/main.js"></script>
 </head>
 <body>
 
-    <canvas id="starfield" aria-hidden="true" title="Fondo animado de estrellas"></canvas>
 
+    <canvas id="starfield" aria-hidden="true" title="Fondo animado de estrellas"></canvas>
     <header class="hero-section">
         <div class="hero-content">
             <h1>Explorando Marte</h1>
             <p class="subtitle">Un viaje interactivo a través de los datos de la NASA</p>
-            <a href="#dashboard" class="cta-button" aria-label="Explorar Misiones de Marte">Explorar Datos</a>
         </div>
+        <nav class="main-nav">
+            <button id="nav-dashboard" class="nav-btn active" aria-label="Dashboard">Dashboard</button>
+            <button id="nav-missions" class="nav-btn" aria-label="Misiones">Misiones</button>
+            <button id="nav-planet" class="nav-btn" aria-label="Planeta Rojo">Planeta Rojo</button>
+        </nav>
     </header>
 
-    <main id="main-content">
-        <section id="dashboard" aria-labelledby="dashboard-title">
-            <h2 id="dashboard-title" class="sr-only">Panel de Control de Misiones</h2>
-            
-            <div id="weather-widget" class="widget card">
-                <h3 class="widget-title">Clima en Elysium Planitia</h3>
-                <div class="loader-container">
-                    <div class="loader"></div>
-                    <p>Cargando datos del clima...</p>
-                </div>
-                <!-- El contenido se inyectará aquí con JS -->
-            </div>
-
-            <div id="latest-photos" class="widget card">
-                <h3 class="widget-title">Últimas Fotos de Perseverance</h3>
-                <div class="loader-container">
-                    <div class="loader"></div>
-                    <p>Cargando últimas fotos...</p>
-                </div>
-                <!-- El contenido se inyectará aquí con JS -->
-            </div>
-        </section>
-
-        <section id="missions" aria-labelledby="missions-title">
-            <h2 id="missions-title">Explorador de Misiones Rover</h2>
-            
-            <nav id="rover-selector" aria-label="Selector de Rovers">
-                <button data-rover="Perseverance" class="active" aria-pressed="true">Perseverance</button>
-                <button data-rover="Curiosity" aria-pressed="false">Curiosity</button>
-                <button data-rover="Opportunity" aria-pressed="false">Opportunity</button>
-                <button data-rover="Spirit" aria-pressed="false">Spirit</button>
-            </nav>
-
-            <div class="mission-details-container">
-                <div id="mission-manifest" class="card">
-                    <div class="loader-container">
-                        <div class="loader"></div>
-                        <p>Cargando manifiesto de misión...</p>
-                    </div>
-                    <!-- El contenido se inyectará aquí con JS -->
-                </div>
-            </div>
-            
-            <div id="photo-gallery" class="photo-section">
-                <h3>Galería de Fotos del Rover</h3>
-                <div class="loader-container">
-                    <div class="loader"></div>
-                    <p>Cargando galería de fotos...</p>
-                </div>
-                <!-- Las fotos se inyectarán aquí con JS -->
-            </div>
-        </section>
-
-        <section id="planet-data" aria-labelledby="planet-data-title">
-            <h2 id="planet-data-title">El Planeta Rojo</h2>
-            
-            <div id="map-container" class="card">
-                <h3>Mapa 3D Interactivo de Marte (NASA's Eyes)</h3>
-                <iframe 
-                    id="nasa-eyes-map"
-                    src="https://eyes.nasa.gov/apps/solar-system/#/mars"
-                    width="100%" 
-                    height="600" 
-                    frameborder="0"
-                    scrolling="no"
-                    allowfullscreen
-                    title="Mapa 3D interactivo del sistema solar de la NASA"
-                ></iframe>
-            </div>
-
-            <nav id="map-controls" aria-label="Controles del mapa 3D de Marte">
-                <button data-target="Perseverance" aria-label="Ver posición del rover Perseverance">Ver Perseverance</button>
-                <button data-target="General" aria-label="Ver vista general de Marte">Vista General</button>
-            </nav>
-        </section>
+    <main id="spa-content">
     </main>
 
     <footer class="footer">
         <p>&copy; 2023 Misión a Marte. Todos los derechos reservados. Datos proporcionados por la NASA.</p>
     </footer>
- 
-    <script type="module" src="scripts/main.js"></script>
 
+    <script type="module" src="scripts/main.js"></script>
+    <script>
+
+    const views = {
+        dashboard: 'dashboard.html',
+        missions: 'missions.html',
+        planet: 'planet.html'
+    };
+    const spaContent = document.getElementById('spa-content');
+    const navBtns = {
+        dashboard: document.getElementById('nav-dashboard'),
+        missions: document.getElementById('nav-missions'),
+        planet: document.getElementById('nav-planet')
+    };
+
+    function setActiveNav(view) {
+        Object.keys(navBtns).forEach(key => {
+            navBtns[key].classList.toggle('active', key === view);
+        });
+    }
+
+    async function loadView(view) {
+        setActiveNav(view);
+        try {
+            const res = await fetch(views[view]);
+            if (!res.ok) throw new Error('No se pudo cargar la vista');
+            const html = await res.text();
+            // Extraer solo el contenido de <main> de la vista
+            const temp = document.createElement('div');
+            temp.innerHTML = html;
+            const main = temp.querySelector('main');
+            spaContent.innerHTML = main ? main.innerHTML : html;
+            // Re-ejecutar scripts de la vista si es necesario
+        } catch (e) {
+            spaContent.innerHTML = '<p class="error-message">No se pudo cargar la vista.</p>';
+        }
+    }
+
+    // Navegación
+    navBtns.dashboard.addEventListener('click', () => loadView('dashboard'));
+    navBtns.missions.addEventListener('click', () => loadView('missions'));
+    navBtns.planet.addEventListener('click', () => loadView('planet'));
+
+    // Cargar vista inicial
+    loadView('dashboard');
+    </script>
+
+ 
 </body>
 </html>

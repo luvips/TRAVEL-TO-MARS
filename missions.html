@@ -1,0 +1,24 @@
+<section id="missions" aria-labelledby="missions-title">
+    <h2 id="missions-title">Explorador de Misiones Rover</h2>
+    <nav id="rover-selector" aria-label="Selector de Rovers">
+        <button data-rover="Perseverance" class="active" aria-pressed="true">Perseverance</button>
+        <button data-rover="Curiosity" aria-pressed="false">Curiosity</button>
+        <button data-rover="Opportunity" aria-pressed="false">Opportunity</button>
+        <button data-rover="Spirit" aria-pressed="false">Spirit</button>
+    </nav>
+    <div class="mission-details-container">
+        <div id="mission-manifest" class="card">
+            <div class="loader-container">
+                <div class="loader"></div>
+                <p>Cargando manifiesto de misión...</p>
+            </div>
+        </div>
+    </div>
+    <div id="photo-gallery" class="photo-section">
+        <h3>Galería de Fotos del Rover</h3>
+        <div class="loader-container">
+            <div class="loader"></div>
+            <p>Cargando galería de fotos...</p>
+        </div>
+    </div>
+</section>
