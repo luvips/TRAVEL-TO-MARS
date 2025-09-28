@@ -24,4 +24,4 @@ export async function getWeatherData() {
     } catch (error) {
         console.error("CERROR", error);
         return null; 
-}
+}}
